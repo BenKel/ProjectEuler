@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProjectEuler.Problems
 {
@@ -8,7 +6,17 @@ namespace ProjectEuler.Problems
     {
         public override string GetAnswer()
         {
-            throw new NotImplementedException();
+            int numberOfSundays = 0;
+
+            for (var date = new DateTime(1901, 1, 1); date.Year < 2001; date = date.AddDays(1))
+            {
+                if (date.Day == 1 && date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    ++numberOfSundays;
+                }
+            }
+
+            return numberOfSundays.ToString();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ProjectEuler.Utilities;
 
 namespace ProjectEuler.Problems
 {
@@ -8,7 +6,22 @@ namespace ProjectEuler.Problems
     {
         public override string GetAnswer()
         {
-            throw new NotImplementedException();
+            int longestSequence = 0;
+            int titleHolder = 0;
+
+            // Going backwards through the loop speeds things up.
+            for (int i = 1000000; i > 1; --i)
+            {
+                int seqLength = Utility.CollatzSequenceLength(i);
+
+                if (seqLength > longestSequence)
+                {
+                    longestSequence = seqLength;
+                    titleHolder = i;
+                }
+            }
+
+            return titleHolder.ToString();
         }
     }
 }

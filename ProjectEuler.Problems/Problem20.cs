@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
+using System.Numerics;
+using ProjectEuler.Utilities;
 
 namespace ProjectEuler.Problems
 {
@@ -8,7 +8,12 @@ namespace ProjectEuler.Problems
     {
         public override string GetAnswer()
         {
-            throw new NotImplementedException();
+            const int nthFactorial = 100;
+            BigInteger factorial = Utility.NFactorial(nthFactorial);
+
+            char[] digits = factorial.ToString().ToCharArray();
+
+            return digits.Sum(digit => (int)char.GetNumericValue(digit)).ToString();
         }
     }
 }

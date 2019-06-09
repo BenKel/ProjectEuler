@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ProjectEuler.Utilities;
 
 namespace ProjectEuler.Problems
 {
@@ -8,7 +6,22 @@ namespace ProjectEuler.Problems
     {
         public override string GetAnswer()
         {
-            throw new NotImplementedException();
+            const int requiredNumberOfDivisors = 501;
+            long triangleNumber = 0;
+
+            for (int i = 1; ; ++i)
+            {
+                triangleNumber += i;
+
+                int divisorCount = Utility.NumberOfDivisors(triangleNumber);
+
+                if (divisorCount < requiredNumberOfDivisors)
+                {
+                    continue;
+                }
+
+                return triangleNumber.ToString();
+            }
         }
     }
 }

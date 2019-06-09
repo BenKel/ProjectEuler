@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace ProjectEuler.Utilities
 {
-    internal static class Utility
+    public static class Utility
     {
         private static Dictionary<long, int> collatzSequenceCache;
         private static Dictionary<int, int> numberLetterCount;
