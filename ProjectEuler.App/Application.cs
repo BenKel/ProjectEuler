@@ -17,16 +17,23 @@ namespace ProjectEuler.App
                 return;
             }
 
+            Console.WriteLine(problem.Title);
+            Console.WriteLine(problem.Description);
+
             var watch = new Stopwatch();
 
-            Console.WriteLine($"Problem processing:");
+            Console.WriteLine($"Problem processing");
+
+            string answer;
 
             watch.Start();
 
-            Console.WriteLine($"{problem.GetAnswer()}");
+            answer = problem.GetAnswer();
 
             watch.Stop();
 
+            Console.WriteLine($"Answer: ");
+            Console.WriteLine(answer);
             Console.WriteLine($"Elapsed Time: {watch.ElapsedMilliseconds} ms");
 
             Console.Read();
