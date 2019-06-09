@@ -2,7 +2,7 @@
 
 namespace ProjectEuler.Models
 {
-    internal class Fraction
+    public class Fraction
     {
         public Fraction()
         {
