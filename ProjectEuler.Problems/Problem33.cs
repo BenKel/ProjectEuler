@@ -5,10 +5,18 @@ namespace ProjectEuler.Problems
 {
     public class Problem33 : ProblemBase
     {
-        // TODO: flesh out fraction class with comparison operators and use that instead of this
-        // find the four fractions (a/b < 1. a,b % 10 != 0) where a digit can be cancelled from the top and the botrtom to yield an equal fraction.
-        // eg: 49/98 = 4/8. the 9 cancels. (mathematically incorrect method, but the correct answer).
-        // This method returns the the denominator of the product of these four fractions, given in its lowest terms.
+        public override string Title => "Digit cancelling fractions";
+
+        public override string Description => @"
+The fraction 49/98 is a curious fraction, as an inexperienced mathematician in attempting to simplify it may incorrectly believe that 49/98 = 4/8, which is correct, is obtained by cancelling the 9s.
+
+We shall consider fractions like, 30/50 = 3/5, to be trivial examples.
+
+There are exactly four non-trivial examples of this type of fraction, less than one in value, and containing two digits in the numerator and denominator.
+
+If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
+            ";
+
         public override string GetAnswer()
         {
             // To make fractions of the form (10a+b)/(10c+d). 10a+b < 10c+d

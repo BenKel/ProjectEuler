@@ -4,10 +4,18 @@ using ProjectEuler.Utilities;
 
 namespace ProjectEuler.Problems
 {
-    // Takes ~80ms
     public class Problem32 : ProblemBase
     {
-        // Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+        public override string Title => "Pandigital products";
+
+        public override string Description => @"
+We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
+
+The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing multiplicand, multiplier, and product is 1 through 9 pandigital.
+
+Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+            ";
+        
         public override string GetAnswer()
         {
             // Most will be of the form ## * ### = ####

@@ -6,10 +6,16 @@ namespace ProjectEuler.Problems
 {
     public class Problem39 : ProblemBase
     {
-        // If p is the perimeter of a right angle triangle with integral length sides, {a,b,c},
-        // there are exactly three solutions for p = 120.
-        // {20,48,52}, {24,45,51}, {30,40,50}
-        // Returns the value of p ≤ 1000, where the number of solutions is maximised.
+        public override string Title => "Integer right triangles";
+
+        public override string Description => @"
+If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there are exactly three solutions for p = 120.
+
+{20,48,52}, {24,45,51}, {30,40,50}
+
+For which value of p ≤ 1000, is the number of solutions maximised?
+            ";
+
         public override string GetAnswer()
         {
             // Iterate through values of p.
