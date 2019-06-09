@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Problem22Data.txt" />
+    <None Remove="Data\Problem42Data.txt" />
+    <None Remove="Data\Problem54Data.txt" />
+    <None Remove="Data\Problem67Data.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\Problem22Data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Problem42Data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Problem54Data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Problem67Data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectEuler.Models\ProjectEuler.Models.csproj" />
+    <ProjectReference Include="..\ProjectEuler.Utilities\ProjectEuler.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

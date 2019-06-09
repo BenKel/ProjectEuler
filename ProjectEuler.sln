@@ -1,14 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler", "ProjectEuler\ProjectEuler.csproj", "{697EFB56-1B11-48FD-BBBB-C5BA223C6FA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler", "ProjectEuler.csproj", "{697EFB56-1B11-48FD-BBBB-C5BA223C6FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.App", "ProjectEuler.App\ProjectEuler.App.csproj", "{29ED29C4-3294-41BA-AB13-068ABED4B365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Utilities", "ProjectEuler.Utilities\ProjectEuler.Utilities.csproj", "{CEA1D5CD-5F53-4E24-9BF8-CBC41BE0A17C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Problems", "ProjectEuler.Problems\ProjectEuler.Problems.csproj", "{9FF0D67E-7C5D-46D9-A633-B9257F8447B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Models", "ProjectEuler.Models\ProjectEuler.Models.csproj", "{0D449623-7ABC-4EAB-8B95-E4324AC11430}"
 EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -18,8 +23,30 @@ Global
 		{697EFB56-1B11-48FD-BBBB-C5BA223C6FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{697EFB56-1B11-48FD-BBBB-C5BA223C6FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{697EFB56-1B11-48FD-BBBB-C5BA223C6FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29ED29C4-3294-41BA-AB13-068ABED4B365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29ED29C4-3294-41BA-AB13-068ABED4B365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29ED29C4-3294-41BA-AB13-068ABED4B365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29ED29C4-3294-41BA-AB13-068ABED4B365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA1D5CD-5F53-4E24-9BF8-CBC41BE0A17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA1D5CD-5F53-4E24-9BF8-CBC41BE0A17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA1D5CD-5F53-4E24-9BF8-CBC41BE0A17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA1D5CD-5F53-4E24-9BF8-CBC41BE0A17C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF0D67E-7C5D-46D9-A633-B9257F8447B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF0D67E-7C5D-46D9-A633-B9257F8447B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF0D67E-7C5D-46D9-A633-B9257F8447B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF0D67E-7C5D-46D9-A633-B9257F8447B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D449623-7ABC-4EAB-8B95-E4324AC11430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D449623-7ABC-4EAB-8B95-E4324AC11430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D449623-7ABC-4EAB-8B95-E4324AC11430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D449623-7ABC-4EAB-8B95-E4324AC11430}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FF8DE2B-A451-4EC5-82C8-2D260C67B577}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
