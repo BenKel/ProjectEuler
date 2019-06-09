@@ -6,7 +6,7 @@ namespace ProjectEuler.Problems
 {
     public class Problem51 : ProblemBase
     {
-        private const int FamilySize = 9;
+        private const int FamilySize = 8;
 
         public override string Title => "Prime digit replacements";
 
