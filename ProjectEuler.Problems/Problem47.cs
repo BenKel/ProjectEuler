@@ -1,10 +1,18 @@
 ﻿using System.Collections.Generic;
-using ProjectEuler.Utilities;
+using System.Linq;
+using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem47 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem47(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Distinct primes factors";
 
         public override string Description => @"
@@ -25,13 +33,13 @@ Find the first four consecutive integers to have four distinct prime factors eac
         public override string GetAnswer()
         {
             var numbers = new Queue<List<int>>();
-            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(1));
-            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(2));
-            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(3));
+            numbers.Enqueue(_primeService.GetPrimeFactors(1).ToList());
+            numbers.Enqueue(_primeService.GetPrimeFactors(2).ToList());
+            numbers.Enqueue(_primeService.GetPrimeFactors(3).ToList());
 
             for (int i = 4; ; ++i)
             {
-                List<int> newFactors = PrimeUtilities.GetPrimeFactors(i);
+                List<int> newFactors = _primeService.GetPrimeFactors(i).ToList();
 
                 CondenseDuplicates(newFactors);
 
@@ -66,7 +74,7 @@ Find the first four consecutive integers to have four distinct prime factors eac
             return product.ToString();
         }
 
-        private static void CondenseDuplicates(List<int> factors)
+        private void CondenseDuplicates(List<int> factors)
         {
             // Remove any duplicate prime factors, so 644: 2, 2, 7, 23 would become 644: 4, 7, 23.
             for (int j = factors.Count - 1; j > 0; --j)

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 
 namespace ProjectEuler.Utilities.Prime
 {
@@ -11,5 +12,7 @@ namespace ProjectEuler.Utilities.Prime
         bool IsPrime(BigInteger number);
 
         bool IsPrimeUncached(BigInteger number);
+
+        IEnumerable<int> GetPrimeFactors(long number);
     }
 }

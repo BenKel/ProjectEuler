@@ -98,5 +98,59 @@ namespace ProjectEuler.Utilities.Prime
 
             return true;
         }
+
+        public IEnumerable<int> GetPrimeFactors(long number)
+        {
+            var primeFactors = new List<int>();
+
+            if (number == 1)
+            {
+                primeFactors.Add(1);
+                return primeFactors;
+            }
+
+            while (true)
+            {
+                if (IsPrime(number))
+                {
+                    primeFactors.Add((int)number);
+                    return primeFactors;
+                }
+
+                bool modified = false;
+
+                // Use cache first (should be faster due to repeated use)
+                foreach (var prime in _cachedPrimes)
+                {
+                    if (number % prime == 0)
+                    {
+                        primeFactors.Add((int)prime);
+                        number /= prime;
+                        modified = true;
+                        break;
+                    }
+                }
+
+                if (modified)
+                {
+                    continue;
+                }
+
+                for (int i = 3; i * i <= number; i += 2)
+                {
+                    if (_cachedPrimes.Contains(i) || !IsPrime(i))
+                    {
+                        continue;
+                    }
+
+                    if (number % i == 0)
+                    {
+                        primeFactors.Add(i);
+                        number /= i;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

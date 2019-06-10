@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectEuler.Problems;
+using ProjectEuler.Utilities.Arithmetic;
 using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.App
@@ -30,6 +31,7 @@ namespace ProjectEuler.App
             builder.RegisterType<ProblemRunner>().As<IProblemRunner>();
             builder.RegisterType<ProblemInstantiator>().As<IProblemInstantiator>();
             builder.RegisterType<PrimeService>().As<IPrimeService>();
+            builder.RegisterType<ArithmeticService>().As<IArithmeticService>();
 
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IProblem)))
                    .Where(t => t.Name.StartsWith("Problem"))

@@ -1,9 +1,16 @@
-﻿using ProjectEuler.Utilities;
+﻿using ProjectEuler.Utilities.Arithmetic;
 
 namespace ProjectEuler.Problems
 {
     public class Problem12 : ProblemBase
     {
+        private readonly IArithmeticService _arithmeticService;
+
+        public Problem12(IArithmeticService arithmeticService)
+        {
+            _arithmeticService = arithmeticService;
+        }
+
         public override string GetAnswer()
         {
             const int requiredNumberOfDivisors = 501;
@@ -13,7 +20,7 @@ namespace ProjectEuler.Problems
             {
                 triangleNumber += i;
 
-                int divisorCount = Utility.NumberOfDivisors(triangleNumber);
+                int divisorCount = _arithmeticService.NumberOfDivisors(triangleNumber);
 
                 if (divisorCount < requiredNumberOfDivisors)
                 {
