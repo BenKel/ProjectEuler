@@ -1,9 +1,17 @@
 ﻿using ProjectEuler.Utilities;
+using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem50 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem50(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Consecutive prime sum";
 
         public override string Description => @"
@@ -33,7 +41,7 @@ Which prime, below one-million, can be written as the sum of the most consecutiv
                         sum += primes[offset + i];
                     }
 
-                    if (PrimeUtilities.IsPrime(sum))
+                    if (_primeService.IsPrime(sum))
                     {
                         return sum.ToString();
                     }

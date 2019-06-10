@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
-using ProjectEuler.Utilities;
+using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem35 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem35(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Circular primes";
 
         public override string Description => @"
@@ -22,7 +29,10 @@ How many circular primes are there below one million?
 
             for (int i = 3; i < limit; i += 2)
             {
-                if (!PrimeUtilities.IsPrime(i)) continue;
+                if (!_primeService.IsPrime(i))
+                {
+                    continue;
+                }
 
                 var perm = new List<char>(i.ToString().ToCharArray());
                 bool isCircularPrime = true;
@@ -34,7 +44,8 @@ How many circular primes are there below one million?
                         isCircularPrime = false;
                         break;
                     }
-                    if (!PrimeUtilities.IsPrime(int.Parse(new string(perm.ToArray()))))
+
+                    if (!_primeService.IsPrime(int.Parse(new string(perm.ToArray()))))
                     {
                         isCircularPrime = false;
                         break;

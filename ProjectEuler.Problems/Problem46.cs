@@ -1,9 +1,16 @@
-﻿using ProjectEuler.Utilities;
+﻿using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem46 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem46(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Goldbach's other conjecture";
 
         public override string Description => @"
@@ -25,7 +32,7 @@ What is the smallest odd composite that cannot be written as the sum of a prime 
         {
             for (int i = 3; ; i += 2)
             {
-                if (PrimeUtilities.IsPrime(i))
+                if (_primeService.IsPrime(i))
                 {
                     continue;
                 }
@@ -37,12 +44,12 @@ What is the smallest odd composite that cannot be written as the sum of a prime 
             }
         }
 
-        private static bool FitsRule(int number)
+        private bool FitsRule(int number)
         {
             // For each square less than the number, check to see if the difference is prime.
             for (int i = 1; 2 * i * i < number; ++i)
             {
-                if (PrimeUtilities.IsPrime(number - (2 * i * i)))
+                if (_primeService.IsPrime(number - (2 * i * i)))
                 {
                     return false;
                 }

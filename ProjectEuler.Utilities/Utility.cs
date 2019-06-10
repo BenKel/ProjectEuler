@@ -44,39 +44,6 @@ namespace ProjectEuler.Utilities
             return numberOfDivisors;
         }
 
-        public static BigInteger NumberOfDivisors(BigInteger number)
-        {
-            BigInteger numberOfDivisors = BigInteger.One;
-
-            List<BigInteger> primeFactors = PrimeUtilities.GetPrimeFactors(number);
-
-            // number of divisors d(n) = (a+1)(b+1)(c+1)...
-            // where n = p^a * q^b * r^c ... (expressed as a product of prime factors)
-
-            while (primeFactors.Count > 0)
-            {
-                BigInteger a = primeFactors[0];
-                primeFactors.RemoveAt(0);
-                int countOfA = 1;
-
-                // Remove all other occurences of a.
-                while (true)
-                {
-                    if (primeFactors.Contains(a))
-                    {
-                        ++countOfA;
-                        primeFactors.Remove(a);
-                        continue;
-                    }
-                    break;
-                }
-
-                numberOfDivisors *= countOfA + 1;
-            }
-
-            return numberOfDivisors;
-        }
-
         public static int SumOfPowerOfDigits(int number, int power)
         {
             int sum = 0;

@@ -1,9 +1,16 @@
-﻿using ProjectEuler.Utilities;
+﻿using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem27 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem27(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Quadratic primes";
 
         public override string Description => @"
@@ -37,21 +44,21 @@ for the quadratic expression that produces the maximum number of primes for cons
 
             for (int b = 1000; b >= -1000; --b)
             {
-                if (!PrimeUtilities.IsPrime(b))
+                if (!_primeService.IsPrime(b))
                 {
                     continue;
                 }
 
                 for (int a = -1000; a < 1000; ++a)
                 {
-                    if (!PrimeUtilities.IsPrime(1 + a + b))
+                    if (!_primeService.IsPrime(1 + a + b))
                     {
                         continue;
                     }
 
                     // Check length of consecutive prime list.
                     int n = 2;
-                    while (PrimeUtilities.IsPrime((n * n) + (a * n) + b))
+                    while (_primeService.IsPrime((n * n) + (a * n) + b))
                     {
                         ++n;
                     }

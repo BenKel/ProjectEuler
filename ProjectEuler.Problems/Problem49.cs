@@ -1,9 +1,17 @@
 ﻿using ProjectEuler.Utilities;
+using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem49 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem49(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Prime permutations";
 
         public override string Description => @"
@@ -19,7 +27,7 @@ What 12-digit number do you form by concatenating the three terms in this sequen
             // This works for 1487, given in the example, so starting at 1489.
             for (int i = 1489; i < 10000; i += 2)
             {
-                if (PrimeUtilities.IsPrime(i) && PrimeUtilities.IsPrime(i + 3330) && PrimeUtilities.IsPrime(i + 6660)
+                if (_primeService.IsPrime(i) && _primeService.IsPrime(i + 3330) && _primeService.IsPrime(i + 6660)
                     && StringUtilities.IsPermutation(i.ToString(), (i + 3330).ToString())
                     && StringUtilities.IsPermutation(i.ToString(), (i + 6660).ToString()))
                 {

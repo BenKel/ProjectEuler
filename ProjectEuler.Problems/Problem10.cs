@@ -1,9 +1,16 @@
-﻿using ProjectEuler.Utilities;
+﻿using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem10 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem10(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string GetAnswer()
         {
             const int limit = 2000000;
@@ -11,7 +18,7 @@ namespace ProjectEuler.Problems
 
             for (int i = 5; i < limit; i += 2)
             {
-                if (!PrimeUtilities.IsPrimeUncached(i))
+                if (!_primeService.IsPrimeUncached(i))
                 {
                     continue;
                 }

@@ -1,9 +1,16 @@
-﻿using ProjectEuler.Utilities;
+﻿using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem37 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem37(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Truncatable primes";
 
         public override string Description => @"
@@ -22,7 +29,7 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
             // 2, 3, 5, 7 not considered truncatable, so start at 11.
             for (int i = 11; count < 11; i += 2)
             {
-                if (!HasOddDigits(i) || !PrimeEndDigits(i) || !PrimeUtilities.IsPrime(i))
+                if (!HasOddDigits(i) || !PrimeEndDigits(i) || !_primeService.IsPrime(i))
                 {
                     continue;
                 }
@@ -37,20 +44,20 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
             return sum.ToString();
         }
 
-        private static bool PrimeEndDigits(int number)
+        private bool PrimeEndDigits(int number)
         {
             string numberString = number.ToString();
 
             return IsPrimeChar(numberString[0]) && IsPrimeChar(numberString[numberString.Length - 1]);
         }
 
-        private static bool IsPrimeChar(char c)
+        private bool IsPrimeChar(char c)
         {
             return c == '2' || c == '3' || c == '5' || c == '7';
         }
 
         // Returns true if the number only contains odd digits or '2's
-        private static bool HasOddDigits(int number)
+        private bool HasOddDigits(int number)
         {
             foreach (char c in number.ToString())
             {
@@ -64,7 +71,7 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
             return true;
         }
 
-        private static bool IsTruncatable(int number)
+        private bool IsTruncatable(int number)
         {
             string numberString = number.ToString();
             // Check right hand side truncatable.
@@ -73,7 +80,7 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
                 int right = int.Parse(numberString.Substring(0, numberString.Length - i));
                 int left = int.Parse(numberString.Substring(i, numberString.Length - i));
 
-                if (!PrimeUtilities.IsPrime(right) || !PrimeUtilities.IsPrime(left))
+                if (!_primeService.IsPrime(right) || !_primeService.IsPrime(left))
                 {
                     return false;
                 }
