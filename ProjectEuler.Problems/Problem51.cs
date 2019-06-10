@@ -1,12 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ProjectEuler.Utilities;
+using ProjectEuler.Utilities.Prime;
 
 namespace ProjectEuler.Problems
 {
     public class Problem51 : ProblemBase
     {
         private const int FamilySize = 8;
+        private readonly IPrimeService _primeService;
+
+        public Problem51(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
 
         public override string Title => "Prime digit replacements";
 
@@ -21,9 +27,13 @@ Find the smallest prime which, by replacing part of the number (not necessarily 
         public override string GetAnswer()
         {
             const int lowerLimit = 56995; // The example given in the question is 56**3, so that can't be the answer.
+
             for (int i = lowerLimit; ; i += 2)
             {
-                if (!PrimeUtilities.IsPrime(i)) continue;
+                if (!_primeService.IsPrime(i))
+                {
+                    continue;
+                }
 
                 if (FitsRule(i))
                 {
@@ -32,7 +42,7 @@ Find the smallest prime which, by replacing part of the number (not necessarily 
             }
         }
 
-        private static bool FitsRule(int number)
+        private bool FitsRule(int number)
         {
             string numberString = number.ToString();
 
@@ -60,13 +70,13 @@ Find the smallest prime which, by replacing part of the number (not necessarily 
         // Iterates through all of the family by replacing the digits at the specified indices
         // and replacing them with the digits 0 through 9.
         // Checks if at least 8 members of the family are prime.
-        private static bool FamilyIsPrime(string numberString, params int[] replacedIndices)
+        private bool FamilyIsPrime(string numberString, params int[] replacedIndices)
         {
             int primeCount = 0;
 
             foreach (var alteredNumber in GetReplacedNumbers(numberString, replacedIndices))
             {
-                if (!PrimeUtilities.IsPrime(alteredNumber))
+                if (!_primeService.IsPrime(alteredNumber))
                 {
                     continue;
                 }
@@ -82,7 +92,7 @@ Find the smallest prime which, by replacing part of the number (not necessarily 
             return false;
         }
 
-        private static IEnumerable<List<int>> GetIndicesToReplace(string numberString)
+        private IEnumerable<List<int>> GetIndicesToReplace(string numberString)
         {
             // Snippet from stackoverflow to get the indices by creating an object containing each item and its index.
             // Then group by the item and filter out the groups containing more than one object.
@@ -99,7 +109,7 @@ Find the smallest prime which, by replacing part of the number (not necessarily 
             }
         }
 
-        private static IEnumerable<int> GetReplacedNumbers(string number, params int[] replacedIndices)
+        private IEnumerable<int> GetReplacedNumbers(string number, params int[] replacedIndices)
         {
             int insertedNumber = 0;
             // The first digit can't be changed to 0, so skip to 1 if it's included.

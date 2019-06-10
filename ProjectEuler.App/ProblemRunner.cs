@@ -4,15 +4,22 @@ using ProjectEuler.Problems;
 
 namespace ProjectEuler.App
 {
-    public class Application
+    public class ProblemRunner : IProblemRunner
     {
+        private readonly IProblemInstantiator _problemInstantiator;
+
+        public ProblemRunner(IProblemInstantiator problemInstantiator)
+        {
+            _problemInstantiator = problemInstantiator;
+        }
+
         public void Run()
         {
             var problem = GetProblemToSolve();
 
             if (problem == null)
             {
-                Console.WriteLine($"There was a problem finding the problem");
+                Console.WriteLine("There was a problem finding the problem");
                 Console.Read();
                 return;
             }
@@ -22,7 +29,7 @@ namespace ProjectEuler.App
 
             var watch = new Stopwatch();
 
-            Console.WriteLine($"Problem processing");
+            Console.WriteLine("Problem processing");
 
             string answer;
 
@@ -32,7 +39,7 @@ namespace ProjectEuler.App
 
             watch.Stop();
 
-            Console.WriteLine($"Answer: ");
+            Console.WriteLine("Answer: ");
             Console.WriteLine(answer);
             Console.WriteLine($"Elapsed Time: {watch.ElapsedMilliseconds} ms");
 
@@ -43,34 +50,21 @@ namespace ProjectEuler.App
         {
             Console.WriteLine("Enter Problem Number:");
             var validInput = false;
-            var userInput = string.Empty;
+            var parsedProblemNumber = 0;
 
             while (!validInput)
             {
-                userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
 
-                validInput = int.TryParse(userInput, out int _);
+                validInput = int.TryParse(userInput, out parsedProblemNumber);
 
                 if (!validInput)
                 {
                     Console.WriteLine("Integer please.");
                 }
             }
-            
 
-            var problemClassName = $"{typeof(IProblem).Namespace}.Problem{userInput}";
-            try
-            {
-                var problemType = typeof(IProblem).Assembly.GetType(problemClassName);
-                var instance = (IProblem)Activator.CreateInstance(problemType);
-
-                return instance;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            return _problemInstantiator.GetProblemInstance(parsedProblemNumber);
         }
     }
 }
