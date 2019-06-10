@@ -25,13 +25,13 @@ Find the first four consecutive integers to have four distinct prime factors eac
         public override string GetAnswer()
         {
             var numbers = new Queue<List<int>>();
-            numbers.Enqueue(PrimeUtilities.PrimeFactors(1));
-            numbers.Enqueue(PrimeUtilities.PrimeFactors(2));
-            numbers.Enqueue(PrimeUtilities.PrimeFactors(3));
+            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(1));
+            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(2));
+            numbers.Enqueue(PrimeUtilities.GetPrimeFactors(3));
 
             for (int i = 4; ; ++i)
             {
-                List<int> newFactors = PrimeUtilities.PrimeFactors(i);
+                List<int> newFactors = PrimeUtilities.GetPrimeFactors(i);
 
                 CondenseDuplicates(newFactors);
 
@@ -82,18 +82,6 @@ Find the first four consecutive integers to have four distinct prime factors eac
                     }
                 }
             }
-        }
-
-        private static bool ContainsDuplicates(Queue<List<int>> queue)
-        {
-            var array = queue.ToArray();
-            var list = new List<int>();
-            foreach (List<int> primeList in array)
-            {
-                list.AddRange(primeList);
-            }
-
-            return Utility.AnyDuplicates(list);
         }
     }
 }

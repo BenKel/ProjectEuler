@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectEuler.Utilities
 {
@@ -8,7 +8,7 @@ namespace ProjectEuler.Utilities
         // a = 1, b = 2 etc.
         public static int AlphabeticalScore(string input)
         {
-            return  input.ToUpper().Sum(c => c - 64);
+            return input.ToUpper().Sum(c => c - 64);
         }
 
         public static bool HasDuplicateChars(string input)
@@ -24,7 +24,7 @@ namespace ProjectEuler.Utilities
 
         public static bool IsPalindrome(string input)
         {
-            for (int i = 0; i <= input.Length/2; ++i)
+            for (int i = 0; i <= input.Length / 2; ++i)
             {
                 if (input[i] != input[input.Length - i - 1])
                 {

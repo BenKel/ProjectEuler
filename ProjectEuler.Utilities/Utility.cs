@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -16,7 +15,7 @@ namespace ProjectEuler.Utilities
         {
             int numberOfDivisors = 1;
 
-            List<int> primeFactors = PrimeUtilities.PrimeFactors(number);
+            List<int> primeFactors = PrimeUtilities.GetPrimeFactors(number);
 
             // number of divisors d(n) = (a+1)(b+1)(c+1)...
             // where n = p^a * q^b * r^c ... (expressed as a product of prime factors)
@@ -49,7 +48,7 @@ namespace ProjectEuler.Utilities
         {
             BigInteger numberOfDivisors = BigInteger.One;
 
-            List<BigInteger> primeFactors = PrimeUtilities.PrimeFactors(number);
+            List<BigInteger> primeFactors = PrimeUtilities.GetPrimeFactors(number);
 
             // number of divisors d(n) = (a+1)(b+1)(c+1)...
             // where n = p^a * q^b * r^c ... (expressed as a product of prime factors)
@@ -123,18 +122,6 @@ namespace ProjectEuler.Utilities
             }
 
             return abundantNumbers;
-        }
-
-        public static long SumUpTo(int inclusiveLimit)
-        {
-            long sum = 0;
-
-            for (int i = 1; i <= inclusiveLimit; ++i)
-            {
-                sum += i;
-            }
-
-            return sum;
         }
 
         public static List<int> GetFactors(int number)
@@ -295,152 +282,6 @@ namespace ProjectEuler.Utilities
             return factorial;
         }
 
-        // From stackoverflow
-        public static bool NextPermutation(List<char> numList)
-        {
-            /*
-             Knuths
-             1. Find the largest index j such that a[j] < a[j + 1]. If no such index exists, the permutation is the last permutation.
-             2. Find the largest index l such that a[j] < a[l]. Since j + 1 is such an index, l is well defined and satisfies j < l.
-             3. Swap a[j] with a[l].
-             4. Reverse the sequence from a[j + 1] up to and including the final element a[n].
-
-             */
-            var largestIndex = -1;
-            for (var i = numList.Count - 2; i >= 0; i--)
-            {
-                if (numList[i] < numList[i + 1])
-                {
-                    largestIndex = i;
-                    break;
-                }
-            }
-
-            if (largestIndex < 0) return false;
-
-            var largestIndex2 = -1;
-            for (var i = numList.Count - 1; i >= 0; i--)
-            {
-                if (numList[largestIndex] < numList[i])
-                {
-                    largestIndex2 = i;
-                    break;
-                }
-            }
-
-            var tmp = numList[largestIndex];
-            numList[largestIndex] = numList[largestIndex2];
-            numList[largestIndex2] = tmp;
-
-            for (int i = largestIndex + 1, j = numList.Count - 1; i < j; i++, j--)
-            {
-                tmp = numList[i];
-                numList[i] = numList[j];
-                numList[j] = tmp;
-            }
-
-            return true;
-        }
-
-        public static string GetRecurringDecimal(int numerator, int denominator)
-        {
-            decimal dec = (decimal)numerator / denominator;
-            string decString = dec.ToString(CultureInfo.InvariantCulture);
-            int maxRepeatLength = denominator - 1;
-
-            if (decString.Length < 2 * maxRepeatLength)
-            {
-                return string.Empty;
-            }
-
-            string repeat = "";
-            int index = 0;
-
-            // Move the index after the decimal point.
-            while (!decString[index].Equals('.'))
-            {
-                ++index;
-            }
-            ++index;
-
-            decString = decString.Substring(index);
-
-            for (int repeatLength = 1; repeatLength < maxRepeatLength; ++repeatLength)
-            {
-                bool foundRepeat = true;
-                int offset = 0;
-
-                for (index = 0; index < maxRepeatLength && index + repeatLength < decString.Length; ++index)
-                {
-                    if (decString[index + offset] != decString[index + repeatLength + offset])
-                    {
-                        index = -1;
-                        ++offset;
-                    }
-
-                    if (offset >= maxRepeatLength)
-                    {
-                        foundRepeat = false;
-                        break;
-                    }
-                }
-
-                if (foundRepeat)
-                {
-                    repeat = decString.Substring(offset, repeatLength);
-                    break;
-                }
-            }
-
-            return repeat;
-        }
-
-        public static string GetRecurringDecimal2(int numerator, int denominator)
-        {
-            int maxRepeatLength = denominator - 1;
-            var pow = BigInteger.Pow(10, maxRepeatLength);
-            var bigNumer = BigInteger.Multiply(new BigInteger(numerator), pow);
-            var length = bigNumer.ToString().Length;
-            BigInteger decimalRepresentation = BigInteger.Divide(bigNumer, denominator);
-            string decString = decimalRepresentation.ToString(CultureInfo.InvariantCulture);
-
-            if (decString.Length < maxRepeatLength / 2)
-            {
-                return string.Empty;
-            }
-
-            string repeat = "";
-
-            for (int repeatLength = 1; repeatLength < maxRepeatLength; ++repeatLength)
-            {
-                bool foundRepeat = true;
-                int offset = 0;
-
-                for (int index = 0; index < maxRepeatLength && index + repeatLength + offset < decString.Length; ++index)
-                {
-                    if (decString[index + offset] != decString[index + repeatLength + offset])
-                    {
-                        index = -1;
-                        ++offset;
-                    }
-
-                    if (offset >= maxRepeatLength / 2)
-                    {
-                        foundRepeat = false;
-                        break;
-                    }
-                }
-
-                if (foundRepeat)
-                {
-                    repeat = decString.Substring(offset, repeatLength);
-                    break;
-                }
-            }
-
-            return repeat;
-        }
-
         public static int[,] ParseFileToIntArray(string filePath, int arrayWidth, int arrayHeight)
         {
             var array = new int[arrayWidth, arrayHeight];
@@ -557,11 +398,6 @@ namespace ProjectEuler.Utilities
                     line = reader.ReadLine();
                 }
             }
-        }
-
-        public static bool AnyDuplicates<T>(List<T> list)
-        {
-            return list.Count != list.Distinct().Count();
         }
     }
 }

@@ -1,34 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 
 namespace ProjectEuler.Utilities
 {
-    public class PrimeUtilities
+    public static class PrimeUtilities
     {
-        private static readonly HashSet<long> CachedPrimes;
-
-        static PrimeUtilities()
-        {
-            CachedPrimes = new HashSet<long> { 2, 3, 5, 7 };
-        }
-
-        public static void AddToCache(List<long> primes)
-        {
-            foreach (long prime in primes)
-            {
-                CachedPrimes.Add(prime);
-            }
-        }
-
-        public static void AddToCache(List<int> primes)
-        {
-            foreach (int prime in primes)
-            {
-                CachedPrimes.Add(prime);
-            }
-        }
+        private static readonly HashSet<long> _cachedPrimes = new HashSet<long> { 2, 3, 5, 7 };
 
         public static bool IsPrimeUncached(long number)
         {
@@ -56,7 +34,7 @@ namespace ProjectEuler.Utilities
 
         public static bool IsPrime(long number)
         {
-            if (CachedPrimes.Contains(number))
+            if (_cachedPrimes.Contains(number))
             {
                 return true;
             }
@@ -65,7 +43,7 @@ namespace ProjectEuler.Utilities
 
             if (isPrime)
             {
-                CachedPrimes.Add(number);
+                _cachedPrimes.Add(number);
             }
 
             return isPrime;
@@ -81,7 +59,7 @@ namespace ProjectEuler.Utilities
             return IsPrimeUncached(number);
         }
 
-        public static List<int> PrimeFactors(long number)
+        public static List<int> GetPrimeFactors(long number)
         {
             var primeFactors = new List<int>();
 
@@ -102,7 +80,7 @@ namespace ProjectEuler.Utilities
                 bool modified = false;
 
                 // Use cache first (should be faster due to repeated use)
-                foreach (var prime in CachedPrimes)
+                foreach (var prime in _cachedPrimes)
                 {
                     if (number % prime == 0)
                     {
@@ -120,7 +98,7 @@ namespace ProjectEuler.Utilities
 
                 for (int i = 3; i * i <= number; i += 2)
                 {
-                    if (CachedPrimes.Contains(i))
+                    if (_cachedPrimes.Contains(i))
                     {
                         continue;
                     }
@@ -140,7 +118,7 @@ namespace ProjectEuler.Utilities
             }
         }
 
-        public static List<BigInteger> PrimeFactors(BigInteger number)
+        public static List<BigInteger> GetPrimeFactors(BigInteger number)
         {
             var primeFactors = new List<BigInteger>();
 
@@ -161,7 +139,7 @@ namespace ProjectEuler.Utilities
                 bool modified = false;
 
                 // Use cache first (should be faster due to repeated use)
-                foreach (var prime in CachedPrimes)
+                foreach (var prime in _cachedPrimes)
                 {
                     if (number % prime == 0)
                     {
@@ -179,7 +157,7 @@ namespace ProjectEuler.Utilities
 
                 for (int i = 3; i * i <= number; i += 2)
                 {
-                    if (CachedPrimes.Contains(i))
+                    if (_cachedPrimes.Contains(i))
                     {
                         continue;
                     }
@@ -199,32 +177,20 @@ namespace ProjectEuler.Utilities
             }
         }
 
-        // From stackoverflow
-        private static int ApproximateNthPrime(int nn)
+        public static List<int> GeneratePrimesUpToN(int n)
         {
-            double n = nn;
-            double p;
-            if (nn >= 7022)
+            BitArray bits = SieveOfEratosthenes(n);
+            var primes = new List<int>();
+            for (int i = 0; i < bits.Length; i++)
             {
-                p = n * Math.Log(n) + n * (Math.Log(Math.Log(n)) - 0.9385);
+                if (bits[i])
+                {
+                    primes.Add(i);
+                }
             }
-            else if (nn >= 6)
-            {
-                p = n * Math.Log(n) + n * Math.Log(Math.Log(n));
-            }
-            else if (nn > 0)
-            {
-                p = new[] { 2, 3, 5, 7, 11 }[nn - 1];
-            }
-            else
-            {
-                p = 0;
-            }
-            return (int)p;
+            return primes;
         }
 
-        // From stackoverflow
-        // Find all primes up to and including the limit
         private static BitArray SieveOfEratosthenes(int limit)
         {
             var bits = new BitArray(limit + 1, true)
@@ -243,37 +209,6 @@ namespace ProjectEuler.Utilities
                 }
             }
             return bits;
-        }
-
-        // From stackoverflow
-        public static List<int> GenerateNPrimes(int n)
-        {
-            int limit = ApproximateNthPrime(n);
-            BitArray bits = SieveOfEratosthenes(limit);
-            var primes = new List<int>();
-            for (int i = 0, found = 0; i < limit && found < n; i++)
-            {
-                if (bits[i])
-                {
-                    primes.Add(i);
-                    found++;
-                }
-            }
-            return primes;
-        }
-
-        public static List<int> GeneratePrimesUpToN(int n)
-        {
-            BitArray bits = SieveOfEratosthenes(n);
-            var primes = new List<int>();
-            for (int i = 0; i < bits.Length; i++)
-            {
-                if (bits[i])
-                {
-                    primes.Add(i);
-                }
-            }
-            return primes;
         }
     }
 }
