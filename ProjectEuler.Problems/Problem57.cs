@@ -1,4 +1,6 @@
-﻿namespace ProjectEuler.Problems
+﻿using ProjectEuler.Models;
+
+namespace ProjectEuler.Problems
 {
     public class Problem57 : ProblemBase
     {
@@ -23,7 +25,28 @@ In the first one-thousand expansions, how many fractions contain a numerator wit
 
         public override string GetAnswer()
         {
-            return "Need to locate the code for this";
+            int numeratorWithMoreDigitsCount = 0;
+
+            for (int expansion = 1; expansion < 1001; expansion++)
+            {
+                var result = 1 + new BigFraction(1, GetExpansion(expansion));
+                if (result.Numerator.ToString().Length > result.Denominator.ToString().Length)
+                {
+                    numeratorWithMoreDigitsCount++;
+                }
+            }
+
+            return numeratorWithMoreDigitsCount.ToString();
+        }
+
+        private BigFraction GetExpansion(int count)
+        {
+            if (count == 1)
+            {
+                return new BigFraction(2, 1);
+            }
+
+            return 2 + new BigFraction(1, GetExpansion(count - 1));
         }
     }
 }

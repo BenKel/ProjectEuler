@@ -1,7 +1,16 @@
-﻿namespace ProjectEuler.Problems
+﻿using ProjectEuler.Utilities.Prime;
+
+namespace ProjectEuler.Problems
 {
     public class Problem58 : ProblemBase
     {
+        private readonly IPrimeService _primeService;
+
+        public Problem58(IPrimeService primeService)
+        {
+            _primeService = primeService;
+        }
+
         public override string Title => "Spiral primes";
 
         public override string Description => @"
@@ -22,7 +31,29 @@ If one complete new layer is wrapped around the spiral above, a square spiral wi
 
         public override string GetAnswer()
         {
-            return "Need to locate the code for this";
+            int sideLength = 1;
+            double primeCount = 0;
+            int diagonalCount = 1;
+            int currentNumber = 1;
+
+            do
+            {
+                sideLength += 2;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    currentNumber += sideLength - 1;
+
+                    if (_primeService.IsPrime(currentNumber))
+                    {
+                        primeCount++;
+                    }
+
+                    diagonalCount++;
+                }
+            } while (primeCount / diagonalCount > 0.1);
+
+            return sideLength.ToString();
         }
     }
 }

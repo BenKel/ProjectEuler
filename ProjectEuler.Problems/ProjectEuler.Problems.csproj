@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\p059_cipher.txt" />
     <None Remove="Data\Problem22Data.txt" />
     <None Remove="Data\Problem42Data.txt" />
     <None Remove="Data\Problem54Data.txt" />
@@ -29,6 +30,12 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectEuler.Models\ProjectEuler.Models.csproj" />
     <ProjectReference Include="..\ProjectEuler.Utilities\ProjectEuler.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\p059_cipher.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
